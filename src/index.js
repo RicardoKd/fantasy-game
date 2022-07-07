@@ -1,14 +1,15 @@
 import Phaser from "phaser";
 import Play from "./Play.js";
-import { PHASER_CONTAINER_DIMENSIONS } from "./constants.js";
+import Intro from "./Intro.js";
+import { CANVAS_SIZE } from "./constants.js";
 import css from "./css/main.css";
 
 const config = {
   type: Phaser.AUTO,
   parent: "phaser-example",
-  width: PHASER_CONTAINER_DIMENSIONS.WIDTH,
-  height: PHASER_CONTAINER_DIMENSIONS.HEIGHT,
-  scene: Play,
+  width: CANVAS_SIZE.WIDTH,
+  height: CANVAS_SIZE.HEIGHT,
+  scene: Intro,
   autoCenter: Phaser.Scale.CENTER_BOTH,
 };
 
