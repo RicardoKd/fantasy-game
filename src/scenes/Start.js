@@ -1,22 +1,22 @@
-import manImg1 from "./assets/man-1.png";
-import manImg2 from "./assets/man-2.png";
-import girlImg1 from "./assets/girl-default.png";
-import girlImg2 from "./assets/girl-surprized.png";
-import manReplica from "./assets/Paul.png";
-import girlReplica from "./assets/Lexy.png";
-import backgroundImg from "./assets/bg-main.png";
-import TweenManager from "./animations/TweenManager.js";
-import AbstractFactory from "./AbstractFactory.js";
-import { CANVAS_SIZE, REPLICA_SCALE } from "./constants.js";
+// import manImg1 from "../assets/man-1.png";
+// import manImg2 from "../assets/man-2.png";
+// import girlImg1 from "../assets/girl-default.png";
+// import girlImg2 from "../assets/girl-surprized.png";
+// import manReplica from "../assets/Paul.png";
+// import girlReplica from "../assets/Lexy.png";
+// import backgroundImg from "../assets/bg-main.png";
+import TweenManager from "../animations/TweenManager.js";
+import AbstractFactory from "../AbstractFactory.js";
+import { CANVAS_SIZE, REPLICA_SCALE } from "../constants.js";
 
-export default class Intro extends Phaser.Scene {
+export default class Start extends Phaser.Scene {
   constructor() {
-    super();
+    super("Start");
   }
 
-  preload() {
-    this.#loadAssets();
-  }
+  // preload() {
+  //   this.#loadAssets();
+  // }
 
   async create() {
     let abstractFactory = new AbstractFactory();
@@ -125,13 +125,13 @@ export default class Intro extends Phaser.Scene {
     });
   }
 
-  #loadAssets() {
-    this.load.image("man1", manImg1);
-    this.load.image("man2", manImg2);
-    this.load.image("girl1", girlImg1);
-    this.load.image("girl2", girlImg2);
-    this.load.image("manReplica", manReplica);
-    this.load.image("girlReplica", girlReplica);
-    this.load.image("bg", backgroundImg);
-  }
+  // #loadAssets() {
+  //   this.load.image("man1", manImg1);
+  //   this.load.image("man2", manImg2);
+  //   this.load.image("girl1", girlImg1);
+  //   this.load.image("girl2", girlImg2);
+  //   this.load.image("manReplica", manReplica);
+  //   this.load.image("girlReplica", girlReplica);
+  //   this.load.image("bg", backgroundImg);
+  // }
 }
