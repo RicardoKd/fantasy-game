@@ -1,7 +1,7 @@
 {
-  "name": "connect-the-dots-game",
+  "name": "my-fantasy",
   "version": "1.1.2",
-  "description": "online single-player game",
+  "description": "playable add",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/RicardoKd/connect-the-dots-game"
+    "url": ""
   },
   "author": "Richard Kadian",
   "license": "MIT",
