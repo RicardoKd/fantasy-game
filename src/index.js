@@ -12,7 +12,10 @@ const config = {
   width: CANVAS_SIZE.WIDTH,
   height: CANVAS_SIZE.HEIGHT,
   scene: [Boot, Preload, Start, Play],
-  autoCenter: Phaser.Scale.CENTER_BOTH,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+  },
 };
 
 new Phaser.Game(config);

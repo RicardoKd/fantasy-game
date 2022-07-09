@@ -1,10 +1,3 @@
-// import manImg1 from "../assets/man-1.png";
-// import manImg2 from "../assets/man-2.png";
-// import girlImg1 from "../assets/girl-default.png";
-// import girlImg2 from "../assets/girl-surprized.png";
-// import manReplica from "../assets/Paul.png";
-// import girlReplica from "../assets/Lexy.png";
-// import backgroundImg from "../assets/bg-main.png";
 import TweenManager from "../animations/TweenManager.js";
 import AbstractFactory from "../AbstractFactory.js";
 import { CANVAS_SIZE, REPLICA_SCALE } from "../constants.js";
@@ -14,36 +7,31 @@ export default class Start extends Phaser.Scene {
     super("Start");
   }
 
-  // preload() {
-  //   this.#loadAssets();
-  // }
-
   async create() {
-    let abstractFactory = new AbstractFactory();
+    const abstractFactory = new AbstractFactory();
+
+    // TODO: make background a little darker
     this.add.sprite(0, 0, "bg").setOrigin(0, 0);
-    const manImg1 = abstractFactory.createImageSprite(this, 0, 0, "man1", 0.5);
+
+    const manImg1 = abstractFactory.createImageSprite(this, "man", 0.5);
     manImg1.setPosition(
       CANVAS_SIZE.WIDTH / 2 - (manImg1.width * manImg1.scale) / 2,
       30
     );
 
-    const manImg2 = abstractFactory.createImageSprite(
+    const manSmile = abstractFactory.createImageSprite(
       this,
-      0,
-      0,
-      "man2",
+      "manSmile",
       0.5,
       0
     );
-    manImg2.setPosition(
-      CANVAS_SIZE.WIDTH / 2 - (manImg2.width * manImg2.scale) / 2,
+    manSmile.setPosition(
+      CANVAS_SIZE.WIDTH / 2 - (manSmile.width * manSmile.scale) / 2,
       30
     );
 
     const manReplica = abstractFactory.createImageSprite(
       this,
-      0,
-      0,
       "manReplica",
       REPLICA_SCALE,
       0
@@ -53,36 +41,22 @@ export default class Start extends Phaser.Scene {
       260
     );
 
-    const girlImg1 = abstractFactory.createImageSprite(
-      this,
-      0,
-      0,
-      "girl1",
-      0.5,
-      0
-    );
-    girlImg1.setPosition(
-      CANVAS_SIZE.WIDTH / 2 - (girlImg1.width * girlImg1.scale) / 2,
-      30
-    );
+    const girl = abstractFactory.createImageSprite(this, "girl", 0.5, 0);
+    girl.setPosition(CANVAS_SIZE.WIDTH / 2 - (girl.width * girl.scale) / 2, 30);
 
-    const girlImg2 = abstractFactory.createImageSprite(
+    const girlSurprized = abstractFactory.createImageSprite(
       this,
-      0,
-      0,
-      "girl2",
+      "girlSurprized",
       0.5,
       0
     );
-    girlImg2.setPosition(
-      CANVAS_SIZE.WIDTH / 2 - (girlImg2.width * girlImg2.scale) / 2,
+    girlSurprized.setPosition(
+      CANVAS_SIZE.WIDTH / 2 - (girlSurprized.width * girlSurprized.scale) / 2,
       30
     );
 
     const girlReplica = abstractFactory.createImageSprite(
       this,
-      0,
-      0,
       "girlReplica",
       REPLICA_SCALE,
       0
@@ -92,19 +66,21 @@ export default class Start extends Phaser.Scene {
       260
     );
 
-    this.tweens.add(new TweenManager().showReplica(manReplica));
-    await this.#humanTalk(manImg1, manImg2);
-    this.tweens.add(new TweenManager().humanLeaveScene(manImg1));
-    this.tweens.add(new TweenManager().scaletoZero(manReplica));
-    this.tweens.add(new TweenManager().showReplica(girlReplica));
-    this.tweens.add(new TweenManager().humanEnterScene(girlImg1));
-    this.tweens.add(new TweenManager().humanEnterScene(girlImg2));
-    girlImg1.setAlpha(1);
-    girlImg2.setAlpha(1);
-    await this.#humanTalk(girlImg1, girlImg2);
-  }
+    const tweenMngr = new TweenManager();
 
-  update() {}
+    this.tweens.add(tweenMngr.showReplica(manReplica));
+    await this.#humanTalk(manImg1, manSmile);
+    this.tweens.add(tweenMngr.humanLeaveScene(manImg1));
+    this.tweens.add(tweenMngr.scaleToZero(manReplica));
+    this.tweens.add(tweenMngr.showReplica(girlReplica));
+    this.tweens.add(tweenMngr.humanEnterScene(girl));
+    this.tweens.add(tweenMngr.humanEnterScene(girlSurprized));
+    girl.setAlpha(1);
+    girlSurprized.setAlpha(1);
+    await this.#humanTalk(girl, girlSurprized);
+
+    this.scene.start("Play");
+  }
 
   #humanTalk(sprite1, sprite2) {
     const talk = setInterval(() => {
@@ -124,14 +100,4 @@ export default class Start extends Phaser.Scene {
       }, 3200);
     });
   }
-
-  // #loadAssets() {
-  //   this.load.image("man1", manImg1);
-  //   this.load.image("man2", manImg2);
-  //   this.load.image("girl1", girlImg1);
-  //   this.load.image("girl2", girlImg2);
-  //   this.load.image("manReplica", manReplica);
-  //   this.load.image("girlReplica", girlReplica);
-  //   this.load.image("bg", backgroundImg);
-  // }
 }
