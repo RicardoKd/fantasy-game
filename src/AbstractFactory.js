@@ -1,4 +1,4 @@
-import { CANVAS_SIZE, CARD_SCALE, CARDS } from "./constants.js";
+import { CANVAS_SIZE } from "./constants.js";
 
 export default class AbstractFactory {
   constructor() {}
@@ -10,21 +10,8 @@ export default class AbstractFactory {
     // sprite.setPosition(x, y);
     sprite.setName(texture);
     sprite.setScale(scale);
+
     return sprite;
-  }
-
-  renderCards(scene) {
-    const cards = [];
-
-    CARDS.forEach((name) => {
-      const card = this.renderImageSprite(scene, name, CARD_SCALE);
-      card.setInteractive();
-      const { x, y } = this.#calculateCardPosition(card);
-      card.setPosition(x, y);
-      cards.push(card);
-    });
-
-    return cards;
   }
 
   // TODO: not relasied method
@@ -41,16 +28,31 @@ export default class AbstractFactory {
     return { topText, bg };
   }
 
-  #calculateCardPosition(card) {
-    let shift = -90;
-    const cardName = card.name;
+  // renderCards(scene) {
+  //   const cards = [];
 
-    if (cardName.charAt(cardName.length - 1) > 1) {
-      shift = 90;
-    }
+  //   CARDS.forEach((name) => {
+  //     const card = this.renderImageSprite(scene, name, CARD_SCALE);
+  //     card.setInteractive();
+  //     const { x, y } = this.#calculateCardPosition(card);
+  //     card.setPosition(x, y);
+  //     cards.push(card);
+  //   });
 
-    const x = CANVAS_SIZE.WIDTH / 2 - (card.width * card.scale) / 2 + shift;
-    const y = 410;
-    return { x, y };
-  }
+  //   return cards;
+  // }
+
+  // #calculateCardPosition(card) {
+  //   let shift = -90;
+  //   const cardName = card.name;
+
+  //   if (cardName.charAt(cardName.length - 1) > 1) {
+  //     shift = 90;
+  //   }
+
+  //   const x = CANVAS_SIZE.WIDTH / 2 - (card.width * card.scale) / 2 + shift;
+  //   const y = CANVAS_SIZE.HEIGHT - card.height * card.scale - 20;
+
+  //   return { x, y };
+  // }
 }

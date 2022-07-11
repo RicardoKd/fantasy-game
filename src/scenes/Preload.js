@@ -10,8 +10,8 @@ import progressBar from "../assets/progress-bar.png";
 
 // accesories
 import accessory1 from "../assets/accessory-1.png";
-import accessory2 from "../assets/accessory-1.png";
-import accessory3 from "../assets/accessory-1.png";
+import accessory2 from "../assets/accessory-2.png";
+import accessory3 from "../assets/accessory-3.png";
 import bag1 from "../assets/bag-1.png";
 import bag2 from "../assets/bag-2.png";
 
@@ -57,9 +57,9 @@ export default class Preload extends Phaser.Scene {
     this.load.image("hintPointer", hintPointer);
     this.load.image("progressBar", progressBar);
 
-    this.load.image("accesory1", accessory1);
-    this.load.image("accesory2", accessory2);
-    this.load.image("accesory3", accessory3);
+    this.load.image("accessory1", accessory1);
+    this.load.image("accessory2", accessory2);
+    this.load.image("accessory3", accessory3);
     this.load.image("bag1", bag1);
     this.load.image("bag2", bag2);
 

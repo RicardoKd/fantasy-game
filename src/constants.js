@@ -4,7 +4,7 @@ const CANVAS_SIZE = {
 };
 
 const REPLICA_SCALE = 0.22;
-const CARD_SCALE = 0.3;
+const CARD_SCALE = 0.6;
 
 const CARDS = [
   "dress1",
@@ -18,4 +18,4 @@ const CARDS = [
   "location2",
 ];
 
-export { CANVAS_SIZE, REPLICA_SCALE, CARD_SCALE, CARDS };
+export { CANVAS_SIZE, REPLICA_SCALE, CARD_SCALE };

@@ -13,13 +13,13 @@ export default class Start extends Phaser.Scene {
     // TODO: make background a little darker
     this.add.sprite(0, 0, "bg").setOrigin(0, 0);
 
-    const manImg1 = abstractFactory.createImageSprite(this, "man", 0.5);
+    const manImg1 = abstractFactory.renderImageSprite(this, "man", 0.5);
     manImg1.setPosition(
       CANVAS_SIZE.WIDTH / 2 - (manImg1.width * manImg1.scale) / 2,
       30
     );
 
-    const manSmile = abstractFactory.createImageSprite(
+    const manSmile = abstractFactory.renderImageSprite(
       this,
       "manSmile",
       0.5,
@@ -30,7 +30,7 @@ export default class Start extends Phaser.Scene {
       30
     );
 
-    const manReplica = abstractFactory.createImageSprite(
+    const manReplica = abstractFactory.renderImageSprite(
       this,
       "manReplica",
       REPLICA_SCALE,
@@ -41,10 +41,10 @@ export default class Start extends Phaser.Scene {
       260
     );
 
-    const girl = abstractFactory.createImageSprite(this, "girl", 0.5, 0);
+    const girl = abstractFactory.renderImageSprite(this, "girl", 0.5, 0);
     girl.setPosition(CANVAS_SIZE.WIDTH / 2 - (girl.width * girl.scale) / 2, 30);
 
-    const girlSurprized = abstractFactory.createImageSprite(
+    const girlSurprized = abstractFactory.renderImageSprite(
       this,
       "girlSurprized",
       0.5,
@@ -55,7 +55,7 @@ export default class Start extends Phaser.Scene {
       30
     );
 
-    const girlReplica = abstractFactory.createImageSprite(
+    const girlReplica = abstractFactory.renderImageSprite(
       this,
       "girlReplica",
       REPLICA_SCALE,
@@ -97,7 +97,7 @@ export default class Start extends Phaser.Scene {
       setTimeout(() => {
         clearInterval(talk);
         resolve();
-      }, 3200);
+      }, 2400);
     });
   }
 }

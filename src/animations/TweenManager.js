@@ -8,8 +8,8 @@ export default class TweenManager {
       targets: [gameObject],
       duration: 400,
       x: {
-        getStart: () => gameObject.x - 700,
-        getEnd: () => gameObject.x,
+        from: gameObject.x - 700,
+        to: gameObject.x,
       },
       ease: Phaser.Math.Easing.Cubic,
     };
@@ -19,10 +19,7 @@ export default class TweenManager {
     return {
       targets: [gameObject],
       duration: 400,
-      x: {
-        getStart: () => gameObject.x,
-        getEnd: () => gameObject.x + 700,
-      },
+      x: "+=700",
       ease: Phaser.Math.Easing.Cubic,
     };
   }
@@ -31,10 +28,7 @@ export default class TweenManager {
     return {
       targets: [gameObject],
       duration: 400,
-      scale: {
-        getStart: () => gameObject.scale,
-        getEnd: () => 0,
-      },
+      scale: 0,
       ease: Phaser.Math.Easing.Cubic,
     };
   }
@@ -45,8 +39,8 @@ export default class TweenManager {
       targets: [gameObject],
       duration: 400,
       scale: {
-        getStart: () => 0,
-        getEnd: () => gameObject.scale,
+        from: 0,
+        to: gameObject.scale,
       },
       ease: Phaser.Math.Easing.Cubic,
     };
@@ -58,8 +52,8 @@ export default class TweenManager {
       targets: [gameObject],
       duration: 400,
       scale: {
-        getStart: () => 0,
-        getEnd: () => REPLICA_SCALE,
+        from: 0,
+        to: REPLICA_SCALE,
       },
       ease: Phaser.Math.Easing.Cubic,
     };
@@ -69,10 +63,7 @@ export default class TweenManager {
     return {
       targets: [gameObject],
       duration: 400,
-      y: {
-        getStart: () => gameObject.y,
-        getEnd: () => gameObject.y + 60,
-      },
+      y: "+=60",
       ease: Phaser.Math.Easing.Cubic,
     };
   }
@@ -81,39 +72,48 @@ export default class TweenManager {
     return {
       targets: [gameObject],
       duration: 400,
-      scale: {
-        getStart: () => gameObject.scale,
-        getEnd: () => gameObject.scale + 0.05,
-      },
-      x: {
-        getStart: () => gameObject.x,
-        getEnd: () => gameObject.x - 15,
-      },
-      y: {
-        getStart: () => gameObject.y,
-        getEnd: () => gameObject.y + 40,
-      },
+      scale: "+=0.05",
+      x: "-=15",
+      y: "+=40",
       ease: Phaser.Math.Easing.Cubic,
     };
   }
 
-  hintPointer(gameObject) {
+  hintPointerShow(gameObject) {
     return {
       targets: [gameObject],
-      duration: 400,
-      scale: {
-        getStart: () => gameObject.scale,
-        getEnd: () => gameObject.scale + 0.05,
+
+      ease: Phaser.Math.Easing.Cubic.InOut,
+      y: {
+        value: "-=150",
+        duration: 400,
       },
       x: {
-        getStart: () => gameObject.x,
-        getEnd: () => gameObject.x - 15,
+        delay: 400,
+        value: "+=180",
+        hold: 400,
+        yoyo: true,
+        repeat: -1,
       },
+    };
+  }
+
+  hintPointerHide(gameObject){
+    return {
+      targets: [gameObject],
+
+      ease: Phaser.Math.Easing.Cubic.InOut,
       y: {
-        getStart: () => gameObject.y,
-        getEnd: () => gameObject.y + 40,
+        value: "-=150",
+        duration: 400,
       },
-      ease: Phaser.Math.Easing.Cubic,
+      x: {
+        delay: 400,
+        value: "+=180",
+        hold: 400,
+        yoyo: true,
+        repeat: -1,
+      },
     };
   }
 }
