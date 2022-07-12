@@ -3,19 +3,14 @@ const CANVAS_SIZE = {
   HEIGHT: 600,
 };
 
-const REPLICA_SCALE = 0.22;
+const SPEECH_SPRITE_SCALE = 0.22;
 const CARD_SCALE = 0.6;
 
-const CARDS = [
-  "dress1",
-  "dress2",
-  "accesory1",
-  "accesory2",
-  "accesory3",
-  "bag1",
-  "bag2",
-  "location1",
-  "location2",
+const TOP_TEXTS = [
+  "Choose your dress",
+  "Choose your bag",
+  "Choose your accessory",
+  "Choose your place",
 ];
 
-export { CANVAS_SIZE, REPLICA_SCALE, CARD_SCALE };
+export { CANVAS_SIZE, SPEECH_SPRITE_SCALE, CARD_SCALE, TOP_TEXTS };

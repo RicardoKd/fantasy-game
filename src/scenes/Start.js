@@ -1,6 +1,6 @@
 import TweenManager from "../animations/TweenManager.js";
 import AbstractFactory from "../AbstractFactory.js";
-import { CANVAS_SIZE, REPLICA_SCALE } from "../constants.js";
+import { CANVAS_SIZE, SPEECH_SPRITE_SCALE } from "../constants.js";
 
 export default class Start extends Phaser.Scene {
   constructor() {
@@ -30,14 +30,14 @@ export default class Start extends Phaser.Scene {
       30
     );
 
-    const manReplica = abstractFactory.renderImageSprite(
+    const manSpeech = abstractFactory.renderImageSprite(
       this,
-      "manReplica",
-      REPLICA_SCALE,
+      "manSpeech1",
+      SPEECH_SPRITE_SCALE,
       0
     );
-    manReplica.setPosition(
-      CANVAS_SIZE.WIDTH / 2 - (manReplica.width * manReplica.scale) / 2,
+    manSpeech.setPosition(
+      CANVAS_SIZE.WIDTH / 2 - (manSpeech.width * manSpeech.scale) / 2,
       260
     );
 
@@ -55,24 +55,24 @@ export default class Start extends Phaser.Scene {
       30
     );
 
-    const girlReplica = abstractFactory.renderImageSprite(
+    const girlSpeech = abstractFactory.renderImageSprite(
       this,
-      "girlReplica",
-      REPLICA_SCALE,
+      "girlSpeech",
+      SPEECH_SPRITE_SCALE,
       0
     );
-    girlReplica.setPosition(
-      CANVAS_SIZE.WIDTH / 2 - (girlReplica.width * girlReplica.scale) / 2,
+    girlSpeech.setPosition(
+      CANVAS_SIZE.WIDTH / 2 - (girlSpeech.width * girlSpeech.scale) / 2,
       260
     );
 
     const tweenMngr = new TweenManager();
 
-    this.tweens.add(tweenMngr.showReplica(manReplica));
+    this.tweens.add(tweenMngr.showSpeech(manSpeech));
     await this.#humanTalk(manImg1, manSmile);
     this.tweens.add(tweenMngr.humanLeaveScene(manImg1));
-    this.tweens.add(tweenMngr.scaleToZero(manReplica));
-    this.tweens.add(tweenMngr.showReplica(girlReplica));
+    this.tweens.add(tweenMngr.scaleToZero(manSpeech));
+    this.tweens.add(tweenMngr.showSpeech(girlSpeech));
     this.tweens.add(tweenMngr.humanEnterScene(girl));
     this.tweens.add(tweenMngr.humanEnterScene(girlSurprized));
     girl.setAlpha(1);
@@ -91,13 +91,13 @@ export default class Start extends Phaser.Scene {
         sprite1.setAlpha(1);
         sprite2.setAlpha(0);
       }
-    }, 400);
+    }, 300);
 
     return new Promise((resolve) => {
       setTimeout(() => {
         clearInterval(talk);
         resolve();
-      }, 2400);
+      }, 2100);
     });
   }
 }

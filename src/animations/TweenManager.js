@@ -1,11 +1,11 @@
-import { REPLICA_SCALE } from "../constants.js";
+import { SPEECH_SPRITE_SCALE } from "../constants.js";
 
 export default class TweenManager {
   constructor() {}
 
   humanEnterScene(gameObject) {
     return {
-      targets: [gameObject],
+      targets: gameObject,
       duration: 400,
       x: {
         from: gameObject.x - 700,
@@ -17,7 +17,7 @@ export default class TweenManager {
 
   humanLeaveScene(gameObject) {
     return {
-      targets: [gameObject],
+      targets: gameObject,
       duration: 400,
       x: "+=700",
       ease: Phaser.Math.Easing.Cubic,
@@ -26,7 +26,7 @@ export default class TweenManager {
 
   scaleToZero(gameObject) {
     return {
-      targets: [gameObject],
+      targets: gameObject,
       duration: 400,
       scale: 0,
       ease: Phaser.Math.Easing.Cubic,
@@ -34,9 +34,8 @@ export default class TweenManager {
   }
 
   scaleFromZeroToNormal(gameObject) {
-    gameObject.setAlpha(1);
     return {
-      targets: [gameObject],
+      targets: gameObject,
       duration: 400,
       scale: {
         from: 0,
@@ -46,14 +45,14 @@ export default class TweenManager {
     };
   }
 
-  showReplica(gameObject) {
+  showSpeech(gameObject) {
     gameObject.setAlpha(1);
     return {
-      targets: [gameObject],
+      targets: gameObject,
       duration: 400,
       scale: {
         from: 0,
-        to: REPLICA_SCALE,
+        to: SPEECH_SPRITE_SCALE,
       },
       ease: Phaser.Math.Easing.Cubic,
     };
@@ -61,16 +60,25 @@ export default class TweenManager {
 
   showTopText(gameObject) {
     return {
-      targets: [gameObject],
+      targets: gameObject,
       duration: 400,
       y: "+=60",
       ease: Phaser.Math.Easing.Cubic,
     };
   }
 
+  hideTopText(gameObject) {
+    return {
+      targets: gameObject,
+      duration: 400,
+      alpha: 0,
+      ease: Phaser.Math.Easing.Cubic,
+    };
+  }
+
   zoomIn(gameObject) {
     return {
-      targets: [gameObject],
+      targets: gameObject,
       duration: 400,
       scale: "+=0.05",
       x: "-=15",
@@ -81,27 +89,7 @@ export default class TweenManager {
 
   hintPointerShow(gameObject) {
     return {
-      targets: [gameObject],
-
-      ease: Phaser.Math.Easing.Cubic.InOut,
-      y: {
-        value: "-=150",
-        duration: 400,
-      },
-      x: {
-        delay: 400,
-        value: "+=180",
-        hold: 400,
-        yoyo: true,
-        repeat: -1,
-      },
-    };
-  }
-
-  hintPointerHide(gameObject){
-    return {
-      targets: [gameObject],
-
+      targets: gameObject,
       ease: Phaser.Math.Easing.Cubic.InOut,
       y: {
         value: "-=150",
