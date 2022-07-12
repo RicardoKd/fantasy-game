@@ -7,8 +7,11 @@ import {
   CANVAS_SIZE,
 } from "../constants.js";
 
-export default class ProgressBar {
+export default class ProgressBar extends Phaser.GameObjects.GameObject {
   constructor(scene, y, length) {
+    super(scene, "sprite");
+    this.setName("progressBar");
+
     this.progressBar = scene.add
       .rexCustomProgress({
         type: "rexCustomProgress",

@@ -1,4 +1,3 @@
-import TweenManager from "../animations/TweenManager.js";
 import AbstractFactory from "../AbstractFactory.js";
 import { HUMAN_SCALE, SPEECH_SCALE } from "../constants.js";
 
@@ -9,8 +8,8 @@ export default class Start extends Phaser.Scene {
 
   async create() {
     const abstractFactory = new AbstractFactory();
+    const tweenMngr = abstractFactory.createTweenManager();
 
-    // TODO: make background a little darker
     this.add.sprite(0, 0, "bg").setOrigin(0, 0);
 
     const man = abstractFactory.renderImageXCenter(
@@ -59,8 +58,6 @@ export default class Start extends Phaser.Scene {
       SPEECH_SCALE,
       0
     );
-
-    const tweenMngr = new TweenManager();
 
     this.tweens.add(tweenMngr.showSpeech(manSpeech));
     await this.#humanTalk(man, manSmile);
