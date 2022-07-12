@@ -1,12 +1,10 @@
-import { SPEECH_SPRITE_SCALE } from "../constants.js";
+import { SPEECH_SCALE, ANIMATION_DURATION, CANVAS_SIZE } from "../constants.js";
 
 export default class TweenManager {
-  constructor() {}
-
   humanEnterScene(gameObject) {
     return {
       targets: gameObject,
-      duration: 400,
+      duration: ANIMATION_DURATION,
       x: {
         from: gameObject.x - 700,
         to: gameObject.x,
@@ -18,7 +16,7 @@ export default class TweenManager {
   humanLeaveScene(gameObject) {
     return {
       targets: gameObject,
-      duration: 400,
+      duration: ANIMATION_DURATION,
       x: "+=700",
       ease: Phaser.Math.Easing.Cubic,
     };
@@ -27,7 +25,7 @@ export default class TweenManager {
   scaleToZero(gameObject) {
     return {
       targets: gameObject,
-      duration: 400,
+      duration: ANIMATION_DURATION,
       scale: 0,
       ease: Phaser.Math.Easing.Cubic,
     };
@@ -36,7 +34,7 @@ export default class TweenManager {
   scaleFromZeroToNormal(gameObject) {
     return {
       targets: gameObject,
-      duration: 400,
+      duration: ANIMATION_DURATION,
       scale: {
         from: 0,
         to: gameObject.scale,
@@ -49,11 +47,20 @@ export default class TweenManager {
     gameObject.setAlpha(1);
     return {
       targets: gameObject,
-      duration: 400,
+      duration: ANIMATION_DURATION,
       scale: {
         from: 0,
-        to: SPEECH_SPRITE_SCALE,
+        to: SPEECH_SCALE,
       },
+      ease: Phaser.Math.Easing.Cubic,
+    };
+  }
+
+  revealTopText(gameObject) {
+    return {
+      targets: gameObject,
+      duration: ANIMATION_DURATION,
+      y: "+=60",
       ease: Phaser.Math.Easing.Cubic,
     };
   }
@@ -61,8 +68,15 @@ export default class TweenManager {
   showTopText(gameObject) {
     return {
       targets: gameObject,
-      duration: 400,
-      y: "+=60",
+      duration: 300,
+      scale: {
+        from: 0,
+        to: gameObject.scale,
+      },
+      x: {
+        from: CANVAS_SIZE.WIDTH / 2,
+        to: CANVAS_SIZE.WIDTH / 2 - gameObject.width / 2
+      },
       ease: Phaser.Math.Easing.Cubic,
     };
   }
@@ -70,16 +84,17 @@ export default class TweenManager {
   hideTopText(gameObject) {
     return {
       targets: gameObject,
-      duration: 400,
-      alpha: 0,
+      duration: 300,
+      scale: 0,
+      x: 500,
       ease: Phaser.Math.Easing.Cubic,
     };
   }
 
-  zoomIn(gameObject) {
+  zoomInHuman(gameObject) {
     return {
       targets: gameObject,
-      duration: 400,
+      duration: ANIMATION_DURATION,
       scale: "+=0.05",
       x: "-=15",
       y: "+=40",
@@ -93,7 +108,7 @@ export default class TweenManager {
       ease: Phaser.Math.Easing.Cubic.InOut,
       y: {
         value: "-=150",
-        duration: 400,
+        duration: ANIMATION_DURATION,
       },
       x: {
         delay: 400,

@@ -1,6 +1,6 @@
 import TweenManager from "../animations/TweenManager.js";
 import AbstractFactory from "../AbstractFactory.js";
-import { CANVAS_SIZE, CARD_SCALE, TOP_TEXTS } from "../constants.js";
+import { HUMAN_SCALE, HINT_POINTER_SCALE, TOP_TEXTS } from "../constants.js";
 
 export default class Play extends Phaser.Scene {
   constructor() {
@@ -10,63 +10,51 @@ export default class Play extends Phaser.Scene {
   }
 
   create() {
+    this.input.on("gameobjectover", this.#cardHover, this);
     this.input.on("gameobjectdown", this.#cardClicked, this);
 
     const abstractFactory = new AbstractFactory();
 
     this.add.sprite(0, 0, "bg").setOrigin(0, 0);
 
-    const textBg = abstractFactory.renderImageSprite(this, "progressBar", 0.35);
-    textBg.setPosition(
-      CANVAS_SIZE.WIDTH / 2 - (textBg.width * textBg.scale) / 2,
-      -30
-    );
-    textBg.setName("textBg");
+    const { textBg, topText } = abstractFactory.renderTopText(this);
 
-    const topText = this.add.text(0, 0, TOP_TEXTS[0]);
-    topText.setPosition(
-      CANVAS_SIZE.WIDTH / 2 - (topText.width * topText.scale) / 2,
-      textBg.y + (textBg.height * textBg.scale) / 2 - topText.height / 2
-    );
-    topText.setName("topText");
+    const girl = abstractFactory
+      .renderImageXCenter(this, "girlShy", 30, HUMAN_SCALE)
+      .setName("girl");
 
-    const girl = abstractFactory.renderImageSprite(this, "girlShy", 0.5);
-    girl.setPosition(CANVAS_SIZE.WIDTH / 2 - (girl.width * girl.scale) / 2, 30);
-    girl.setName("girl");
+    const { card1, card2 } = abstractFactory.renderCards(this);
 
-    const card1 = abstractFactory.renderImageSprite(this, "dress1", CARD_SCALE);
-    card1.setPosition(
-      CANVAS_SIZE.WIDTH / 2 - card1.width * card1.scale - 10,
-      410
-    );
-    card1.setName("card1");
-    card1.setInteractive();
-
-    const card2 = abstractFactory.renderImageSprite(this, "dress2", CARD_SCALE);
-    card2.setPosition(CANVAS_SIZE.WIDTH / 2 + 10, 410);
-    card2.setName("card2");
-    card2.setInteractive();
-
-    const hintPointer = abstractFactory.renderImageSprite(
-      this,
-      "hintPointer",
-      0.7
-    );
-    hintPointer.setPosition(
-      card1.x + (card1.width * card1.scale) / 2 - 45,
-      card1.y + 200
-    );
+    const hintPointer = abstractFactory
+      .renderImage(this, "hintPointer", HINT_POINTER_SCALE)
+      .setPosition(
+        card1.x + (card1.width * card1.scale) / 2 - 45,
+        card1.y + 200
+      );
 
     const tweenMngr = new TweenManager();
 
-    this.tweens.add(tweenMngr.showTopText([textBg, topText]));
-    this.tweens.add(tweenMngr.zoomIn(girl));
+    this.tweens.add(tweenMngr.revealTopText([textBg, topText]));
+    this.tweens.add(tweenMngr.zoomInHuman(girl));
     this.tweens.add(tweenMngr.scaleFromZeroToNormal(card1));
     this.tweens.add(tweenMngr.scaleFromZeroToNormal(card2));
     this.tweens.add(tweenMngr.hintPointerShow(hintPointer));
   }
 
-  async #cardClicked(pointer, target) {
+  /*
+    ---- TODO: ----
+
+      1. Show progress
+
+      2. cards.OnHover
+
+  */
+
+  #cardHover(pointer, target) {
+    console.log(target);
+  }
+
+  #cardClicked(pointer, target) {
     const levelHandler = [
       this.#firstChoiceDone,
       this.#secondChoiceDone,
@@ -75,9 +63,11 @@ export default class Play extends Phaser.Scene {
     ];
 
     this.choise[this.levelCounter] = this.#getUsersChoice(target.name);
-    await levelHandler[this.levelCounter].call(this);
+    levelHandler[this.levelCounter].call(this);
 
     this.levelCounter++;
+
+    this.#nextText();
 
     this.#restartHintPointerTween();
   }
@@ -87,18 +77,6 @@ export default class Play extends Phaser.Scene {
 
     const girl = this.children.getByName("girl");
     girl.setTexture(`costume_${this.choise[0]}`);
-    this.#setTopText(TOP_TEXTS[1]);
-    
-    /*
-    ---- TODO: ----
-
-      1. Show progress
-
-      2. cards.OnHover
-
-      3. Make card of locations
-
-    */
   }
 
   #secondChoiceDone() {
@@ -110,8 +88,6 @@ export default class Play extends Phaser.Scene {
 
     const girl = this.children.getByName("girl");
     girl.setTexture(`costume_${this.choise[0]}_${this.choise[1]}`);
-
-    this.#setTopText(TOP_TEXTS[2]);
   }
 
   #thirdChoiceDone() {
@@ -121,7 +97,6 @@ export default class Play extends Phaser.Scene {
     girl.setTexture(
       `costume_${this.choise[0]}_${this.choise[1]}_${this.choise[2]}`
     );
-    this.#setTopText(TOP_TEXTS[3]);
   }
 
   #fourthChoiceDone() {
@@ -130,6 +105,8 @@ export default class Play extends Phaser.Scene {
     const textBg = this.children.getByName("textBg");
     const topText = this.children.getByName("topText");
     this.tweens.add(new TweenManager().hideTopText([textBg, topText]));
+
+    // show win or lose screen
   }
 
   #showNextCards(texture1, texture2) {
@@ -157,8 +134,16 @@ export default class Play extends Phaser.Scene {
     hintPointerShowTween.restart();
   }
 
-  #setTopText(text) {
-    const topText = this.children.getByName("topText");
-    topText.setText(text);
+  #nextText() {
+    const tweenMngr = new TweenManager();
+    const oldText = this.children.getByName("topText");
+
+    const newText = this.add.text(0, -30, TOP_TEXTS[this.levelCounter]);
+    newText.setPosition(new AbstractFactory().centerX(newText), oldText.y);
+
+    oldText.destroy();
+    newText.setName("topText");
+
+    this.tweens.add(tweenMngr.showTopText(newText));
   }
 }

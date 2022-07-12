@@ -4,12 +4,14 @@ import girl from "../assets/girl-default.png";
 import girlShy from "../assets/girl-shy.png";
 import girlSurprized from "../assets/girl-surprized.png";
 import hintPointer from "../assets/hint-pointer.png";
-import textBg from "../assets/progress-bar.png";
+import textBg from "../assets/top-text-bg.png";
 
 // speeches
 import manSpeech1 from "../assets/speeches/man-speech-1.png";
 import manSpeech2 from "../assets/speeches/man-speech-2.png";
 import girlSpeech from "../assets/speeches/girl-speech.png";
+import location1 from "../assets/cards/location-1.png";
+import location2 from "../assets/cards/location-2.png";
 
 // cards
 import dress1 from "../assets/cards/dress-1.png";
@@ -37,8 +39,8 @@ import costume_2_2_1 from "../assets/costumes/girl-2-2-1.png";
 import costume_2_2_2 from "../assets/costumes/girl-2-2-2.png";
 
 // locations
-import location1 from "../assets/location-1.png";
-import location2 from "../assets/location-2.png";
+import bgLocation1 from "../assets/location-1.png";
+import bgLocation2 from "../assets/location-2.png";
 
 export default class Preload extends Phaser.Scene {
   constructor() {
@@ -54,7 +56,7 @@ export default class Preload extends Phaser.Scene {
     this.load.image("girlShy", girlShy);
     this.load.image("girlSurprized", girlSurprized);
     this.load.image("hintPointer", hintPointer);
-    this.load.image("progressBar", textBg);
+    this.load.image("textBg", textBg);
 
     this.load.image("manSpeech1", manSpeech1);
     this.load.image("manSpeech2", manSpeech2);
@@ -67,6 +69,8 @@ export default class Preload extends Phaser.Scene {
     this.load.image("accessory1", accessory1);
     this.load.image("accessory2", accessory2);
     this.load.image("accessory3", accessory3);
+    this.load.image("location1", location1);
+    this.load.image("location2", location2);
 
     this.load.image("costume_1", costume_1);
     this.load.image("costume_1_1", costume_1_1);
@@ -83,8 +87,8 @@ export default class Preload extends Phaser.Scene {
     this.load.image("costume_2_2_1", costume_2_2_1);
     this.load.image("costume_2_2_2", costume_2_2_2);
 
-    this.load.image("location1", location1);
-    this.load.image("location2", location2);
+    this.load.image("bgLocation1", bgLocation1);
+    this.load.image("bgLocation2", bgLocation2);
   }
 
   create() {

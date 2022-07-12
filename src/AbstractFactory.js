@@ -1,58 +1,55 @@
-import { CANVAS_SIZE } from "./constants.js";
+import { CANVAS_SIZE, CARD_SCALE, TOP_TEXTS } from "./constants.js";
 
 export default class AbstractFactory {
-  constructor() {}
+  renderImage(scene, texture, scale = 1, alpha = 1) {
+    const image = scene.add.sprite(0, 0, texture);
+    image.setOrigin(0, 0);
+    image.setAlpha(alpha);
+    image.setName(texture);
+    image.setScale(scale);
 
-  renderImageSprite(scene, texture, scale = 1, alpha = 1) {
-    const sprite = scene.add.sprite(0, 0, texture);
-    sprite.setOrigin(0, 0);
-    sprite.setAlpha(alpha);
-    // sprite.setPosition(x, y);
-    sprite.setName(texture);
-    sprite.setScale(scale);
-
-    return sprite;
+    return image;
   }
 
-  // TODO: not relasied method
-  createTopText(scene, texture, x, y, text) {
-    const bg = this.renderImageSprite(scene, texture, 0.35);
-    bg.setPosition(CANVAS_SIZE.WIDTH / 2 - (bg.width * bg.scale) / 2, -30);
+  renderImageXCenter(scene, texture, y, scale = 1, alpha = 1) {
+    const image = this.renderImage(scene, texture, scale, alpha);
+    image.setPosition(this.centerX(image), y);
 
-    const topText = this.add.text(0, 0, text);
-    topText.setPosition(
-      CANVAS_SIZE.WIDTH / 2 - (topText.width * topText.scale) / 2,
-      bg.y + (bg.height * bg.scale) / 2 - topText.height / 2
-    );
-
-    return { topText, bg };
+    return image;
   }
 
-  // renderCards(scene) {
-  //   const cards = [];
+  renderTopText(scene) {
+    const textBg = this.renderImage(scene, "textBg", 0.35);
+    textBg.setPosition(this.centerX(textBg), -30).setName("textBg");
 
-  //   CARDS.forEach((name) => {
-  //     const card = this.renderImageSprite(scene, name, CARD_SCALE);
-  //     card.setInteractive();
-  //     const { x, y } = this.#calculateCardPosition(card);
-  //     card.setPosition(x, y);
-  //     cards.push(card);
-  //   });
+    const topText = scene.add.text(0, 0, TOP_TEXTS[0]);
+    topText
+      .setPosition(
+        this.centerX(topText),
+        textBg.y + (textBg.height * textBg.scale) / 2 - topText.height / 2
+      )
+      .setName("topText");
 
-  //   return cards;
-  // }
+    return { textBg, topText };
+  }
 
-  // #calculateCardPosition(card) {
-  //   let shift = -90;
-  //   const cardName = card.name;
+  renderCards(scene) {
+    const card1 = this.renderImage(scene, "dress1", CARD_SCALE);
+    card1
+      .setPosition(CANVAS_SIZE.WIDTH / 2 - card1.width * card1.scale - 10, 410)
+      .setName("card1")
+      .setInteractive();
 
-  //   if (cardName.charAt(cardName.length - 1) > 1) {
-  //     shift = 90;
-  //   }
+    const card2 = this.renderImage(scene, "dress2", CARD_SCALE);
+    card2
+      .setPosition(CANVAS_SIZE.WIDTH / 2 + 10, 410)
+      .setName("card2")
+      .setInteractive();
 
-  //   const x = CANVAS_SIZE.WIDTH / 2 - (card.width * card.scale) / 2 + shift;
-  //   const y = CANVAS_SIZE.HEIGHT - card.height * card.scale - 20;
+    return { card1, card2 };
+  }
 
-  //   return { x, y };
-  // }
+  centerX(gameObject) {
+    return CANVAS_SIZE.WIDTH / 2 - (gameObject.width * gameObject.scale) / 2;
+  }
 }

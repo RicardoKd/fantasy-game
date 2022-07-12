@@ -3,8 +3,12 @@ const CANVAS_SIZE = {
   HEIGHT: 600,
 };
 
-const SPEECH_SPRITE_SCALE = 0.22;
+const HUMAN_SCALE = 0.5;
 const CARD_SCALE = 0.6;
+const SPEECH_SCALE = 0.22;
+const HINT_POINTER_SCALE = 0.7;
+
+const ANIMATION_DURATION = 400;
 
 const TOP_TEXTS = [
   "Choose your dress",
@@ -13,4 +17,12 @@ const TOP_TEXTS = [
   "Choose your place",
 ];
 
-export { CANVAS_SIZE, SPEECH_SPRITE_SCALE, CARD_SCALE, TOP_TEXTS };
+export {
+  CANVAS_SIZE,
+  HUMAN_SCALE,
+  CARD_SCALE,
+  SPEECH_SCALE,
+  HINT_POINTER_SCALE,
+  ANIMATION_DURATION,
+  TOP_TEXTS,
+};

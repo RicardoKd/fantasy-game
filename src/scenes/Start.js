@@ -1,6 +1,6 @@
 import TweenManager from "../animations/TweenManager.js";
 import AbstractFactory from "../AbstractFactory.js";
-import { CANVAS_SIZE, SPEECH_SPRITE_SCALE } from "../constants.js";
+import { HUMAN_SCALE, SPEECH_SCALE } from "../constants.js";
 
 export default class Start extends Phaser.Scene {
   constructor() {
@@ -13,64 +13,58 @@ export default class Start extends Phaser.Scene {
     // TODO: make background a little darker
     this.add.sprite(0, 0, "bg").setOrigin(0, 0);
 
-    const manImg1 = abstractFactory.renderImageSprite(this, "man", 0.5);
-    manImg1.setPosition(
-      CANVAS_SIZE.WIDTH / 2 - (manImg1.width * manImg1.scale) / 2,
-      30
+    const man = abstractFactory.renderImageXCenter(
+      this,
+      "man",
+      30,
+      HUMAN_SCALE
     );
 
-    const manSmile = abstractFactory.renderImageSprite(
+    const manSmile = abstractFactory.renderImageXCenter(
       this,
       "manSmile",
-      0.5,
+      30,
+      HUMAN_SCALE,
       0
     );
-    manSmile.setPosition(
-      CANVAS_SIZE.WIDTH / 2 - (manSmile.width * manSmile.scale) / 2,
-      30
-    );
 
-    const manSpeech = abstractFactory.renderImageSprite(
+    const manSpeech = abstractFactory.renderImageXCenter(
       this,
       "manSpeech1",
-      SPEECH_SPRITE_SCALE,
+      260,
+      SPEECH_SCALE,
       0
     );
-    manSpeech.setPosition(
-      CANVAS_SIZE.WIDTH / 2 - (manSpeech.width * manSpeech.scale) / 2,
-      260
+
+    const girl = abstractFactory.renderImageXCenter(
+      this,
+      "girl",
+      30,
+      HUMAN_SCALE,
+      0
     );
 
-    const girl = abstractFactory.renderImageSprite(this, "girl", 0.5, 0);
-    girl.setPosition(CANVAS_SIZE.WIDTH / 2 - (girl.width * girl.scale) / 2, 30);
-
-    const girlSurprized = abstractFactory.renderImageSprite(
+    const girlSurprized = abstractFactory.renderImageXCenter(
       this,
       "girlSurprized",
-      0.5,
+      30,
+      HUMAN_SCALE,
       0
-    );
-    girlSurprized.setPosition(
-      CANVAS_SIZE.WIDTH / 2 - (girlSurprized.width * girlSurprized.scale) / 2,
-      30
     );
 
-    const girlSpeech = abstractFactory.renderImageSprite(
+    const girlSpeech = abstractFactory.renderImageXCenter(
       this,
       "girlSpeech",
-      SPEECH_SPRITE_SCALE,
+      260,
+      SPEECH_SCALE,
       0
-    );
-    girlSpeech.setPosition(
-      CANVAS_SIZE.WIDTH / 2 - (girlSpeech.width * girlSpeech.scale) / 2,
-      260
     );
 
     const tweenMngr = new TweenManager();
 
     this.tweens.add(tweenMngr.showSpeech(manSpeech));
-    await this.#humanTalk(manImg1, manSmile);
-    this.tweens.add(tweenMngr.humanLeaveScene(manImg1));
+    await this.#humanTalk(man, manSmile);
+    this.tweens.add(tweenMngr.humanLeaveScene(man));
     this.tweens.add(tweenMngr.scaleToZero(manSpeech));
     this.tweens.add(tweenMngr.showSpeech(girlSpeech));
     this.tweens.add(tweenMngr.humanEnterScene(girl));
@@ -97,7 +91,7 @@ export default class Start extends Phaser.Scene {
       setTimeout(() => {
         clearInterval(talk);
         resolve();
-      }, 2100);
+      }, 2400);
     });
   }
 }
