@@ -31,6 +31,15 @@ export default class TweenManager {
     };
   }
 
+  alphaToZero(gameObject) {
+    return {
+      targets: gameObject,
+      duration: ANIMATION_DURATION,
+      alpha: 0,
+      ease: Phaser.Math.Easing.Cubic,
+    };
+  }
+
   scaleFromZeroToNormal(gameObject) {
     return {
       targets: gameObject,
@@ -75,18 +84,8 @@ export default class TweenManager {
       },
       x: {
         from: CANVAS_SIZE.WIDTH / 2,
-        to: CANVAS_SIZE.WIDTH / 2 - gameObject.width / 2
+        to: CANVAS_SIZE.WIDTH / 2 - gameObject.width / 2,
       },
-      ease: Phaser.Math.Easing.Cubic,
-    };
-  }
-
-  hideTopText(gameObject) {
-    return {
-      targets: gameObject,
-      duration: 300,
-      scale: 0,
-      x: 500,
       ease: Phaser.Math.Easing.Cubic,
     };
   }

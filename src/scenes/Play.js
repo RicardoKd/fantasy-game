@@ -1,4 +1,3 @@
-import TweenManager from "../animations/TweenManager.js";
 import AbstractFactory from "../AbstractFactory.js";
 import { HUMAN_SCALE, HINT_POINTER_SCALE, TOP_TEXTS } from "../constants.js";
 
@@ -32,7 +31,9 @@ export default class Play extends Phaser.Scene {
         card1.y + 200
       );
 
-    const tweenMngr = new TweenManager();
+    this.progressBar = abstractFactory.renderProgressBar(this, textBg.y + 50, 200);
+
+    const tweenMngr = abstractFactory.createTweenManager();
 
     this.tweens.add(tweenMngr.revealTopText([textBg, topText]));
     this.tweens.add(tweenMngr.zoomInHuman(girl));
@@ -46,7 +47,9 @@ export default class Play extends Phaser.Scene {
 
       1. Show progress
 
-      2. cards.OnHover
+      2. Timeout (2s) of 
+
+      3. Card animation
 
   */
 
@@ -61,6 +64,8 @@ export default class Play extends Phaser.Scene {
       this.#thirdChoiceDone,
       this.#fourthChoiceDone,
     ];
+
+    this.progressBar.nextLevel();
 
     this.choise[this.levelCounter] = this.#getUsersChoice(target.name);
     levelHandler[this.levelCounter].call(this);
@@ -104,7 +109,9 @@ export default class Play extends Phaser.Scene {
 
     const textBg = this.children.getByName("textBg");
     const topText = this.children.getByName("topText");
-    this.tweens.add(new TweenManager().hideTopText([textBg, topText]));
+    this.tweens.add(
+      new AbstractFactory().createTweenManager().alphaToZero([textBg, topText])
+    );
 
     // show win or lose screen
   }
@@ -135,15 +142,15 @@ export default class Play extends Phaser.Scene {
   }
 
   #nextText() {
-    const tweenMngr = new TweenManager();
+    const abstractFactory = new AbstractFactory();
     const oldText = this.children.getByName("topText");
 
     const newText = this.add.text(0, -30, TOP_TEXTS[this.levelCounter]);
-    newText.setPosition(new AbstractFactory().centerX(newText), oldText.y);
+    newText.setPosition(abstractFactory.centerX(newText), oldText.y);
 
     oldText.destroy();
     newText.setName("topText");
 
-    this.tweens.add(tweenMngr.showTopText(newText));
+    this.tweens.add(abstractFactory.createTweenManager().showTopText(newText));
   }
 }

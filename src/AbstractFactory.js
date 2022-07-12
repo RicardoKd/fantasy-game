@@ -1,6 +1,11 @@
+import TweenManager from "./animations/TweenManager.js";
 import { CANVAS_SIZE, CARD_SCALE, TOP_TEXTS } from "./constants.js";
-
+import ProgressBar from "./gameObjects/ProgressBar.js";
 export default class AbstractFactory {
+  createTweenManager() {
+    return new TweenManager();
+  }
+
   renderImage(scene, texture, scale = 1, alpha = 1) {
     const image = scene.add.sprite(0, 0, texture);
     image.setOrigin(0, 0);
@@ -49,7 +54,11 @@ export default class AbstractFactory {
     return { card1, card2 };
   }
 
-  centerX(gameObject) {
-    return CANVAS_SIZE.WIDTH / 2 - (gameObject.width * gameObject.scale) / 2;
+  renderProgressBar(scene, y, length) {
+    return new ProgressBar(scene, y, length);
+  }
+
+  centerX({ width, scale }) {
+    return CANVAS_SIZE.WIDTH / 2 - (width * scale) / 2;
   }
 }

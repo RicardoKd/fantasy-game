@@ -85,13 +85,13 @@ export default class Start extends Phaser.Scene {
         sprite1.setAlpha(1);
         sprite2.setAlpha(0);
       }
-    }, 300);
+    }, 250);
 
     return new Promise((resolve) => {
       setTimeout(() => {
         clearInterval(talk);
         resolve();
-      }, 2400);
+      }, 1500);
     });
   }
 }

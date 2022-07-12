@@ -4,6 +4,7 @@ import Preload from "./scenes/Preload.js";
 import Start from "./scenes/Start.js";
 import Play from "./scenes/Play.js";
 import { CANVAS_SIZE } from "./constants.js";
+import CustomProgressPlugin from "phaser3-rex-plugins/plugins/customprogress-plugin.js";
 import css from "./css/main.css";
 
 const config = {
@@ -15,6 +16,15 @@ const config = {
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
+  },
+  plugins: {
+    global: [
+      {
+        key: "rexCustomProgressPlugin",
+        plugin: CustomProgressPlugin,
+        start: true,
+      },
+    ],
   },
 };
 
