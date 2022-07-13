@@ -59,15 +59,17 @@ export default class Play extends Phaser.Scene {
   /*
     ---- TODO: ----
 
-      1. Decorate progress bar
+      1. Win scene
 
-      2. Animate progress bar show and hide
-
-      3. Make background a little darker in the Start scene
+      2. Lose scene
 
       4. Adaptiveness
       
-      5. Make class for human
+      5. Progress bar
+        1) Decoration
+        2) Animations on show/hide
+      
+      6. Make a class for human
 
   */
 
