@@ -120,7 +120,7 @@ export default class TweenManager {
     };
   }
 
-  cardChange(gameObject) {
+  changeCard(gameObject) {
     const { x, y } = this.#getGameObjectCenter(gameObject);
 
     return {
@@ -134,7 +134,7 @@ export default class TweenManager {
     };
   }
 
-  hintPointerShow(gameObject) {
+  showHintPointer(gameObject) {
     return {
       targets: gameObject,
       ease: Phaser.Math.Easing.Cubic.InOut,
@@ -149,6 +149,16 @@ export default class TweenManager {
         yoyo: true,
         repeat: -1,
       },
+    };
+  }
+
+  hideHintPointer(gameObject, x, y) {
+    return {
+      targets: gameObject,
+      ease: Phaser.Math.Easing.Cubic,
+      duration: ANIMATION_DURATION,
+      x: x,
+      y: y,
     };
   }
 

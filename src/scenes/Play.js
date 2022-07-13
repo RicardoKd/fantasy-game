@@ -30,12 +30,14 @@ export default class Play extends Phaser.Scene {
 
     const { card1, card2 } = this.abstractFactory.renderCards(this);
 
+    this.hintPointerStartPos = {
+      x: card1.x + (card1.width * card1.scale) / 2 - 45,
+      y: card1.y + 200,
+    };
+
     this.hintPointer = this.abstractFactory
       .renderImage(this, "hintPointer", HINT_POINTER_SCALE)
-      .setPosition(
-        card1.x + (card1.width * card1.scale) / 2 - 45,
-        card1.y + 200
-      );
+      .setPosition(this.hintPointerStartPos.x, this.hintPointerStartPos.y);
 
     this.progressBar = this.abstractFactory.renderProgressBar(
       this,
@@ -43,27 +45,29 @@ export default class Play extends Phaser.Scene {
       textBg.width * textBg.scale
     );
 
-    this.tweens.add(
-      this.tweenMngr.revealTopText([textBg, topText, this.progressBar])
-    );
+    console.log(this.progressBar);
+    this.tweens.add(this.tweenMngr.revealTopText([textBg, topText]));
+    this.tweens.add(this.tweenMngr.revealTopText(this.progressBar));
     this.tweens.add(this.tweenMngr.zoomInHuman(this.girl));
     this.tweens.add(this.tweenMngr.scaleFromZeroToNormal(card1));
-    this.tweens.add(this.tweenMngr.scaleFromZeroToNormal(card2, ANIMATION_DURATION));
-    this.tweens.add(this.tweenMngr.hintPointerShow(this.hintPointer));
+    this.tweens.add(
+      this.tweenMngr.scaleFromZeroToNormal(card2, ANIMATION_DURATION)
+    );
+    this.tweens.add(this.tweenMngr.showHintPointer(this.hintPointer));
   }
 
   /*
     ---- TODO: ----
 
-      3. Decorate progress bar
+      1. Decorate progress bar
 
-      4. Animate progress bar
+      2. Animate progress bar show and hide
 
-      5. Make background a little darker in the Start scene
+      3. Make background a little darker in the Start scene
 
-      6. Make class for human
-
-      7. Adaptiveness
+      4. Adaptiveness
+      
+      5. Make class for human
 
   */
 
@@ -81,8 +85,8 @@ export default class Play extends Phaser.Scene {
 
     const card1 = this.children.getByName("card1");
     const card2 = this.children.getByName("card2");
-    this.tweens.add(this.tweenMngr.cardChange(card1));
-    this.tweens.add(this.tweenMngr.cardChange(card2));
+    this.tweens.add(this.tweenMngr.changeCard(card1));
+    this.tweens.add(this.tweenMngr.changeCard(card2));
 
     setTimeout(() => {
       this.progressBar.nextLevel();
@@ -151,13 +155,17 @@ export default class Play extends Phaser.Scene {
 
   #restartHintPointerTween() {
     const hintPointerShowTween = this.tweens.getTweensOf(this.hintPointer)[0];
-    // hide hint pointer with a tween
-    hintPointerShowTween.restart();
     hintPointerShowTween.pause();
-    setTimeout(() => {
-      hintPointerShowTween.resume();
-      console.log("must be started");
-    }, 2000);
+
+    this.tweens.add(
+      this.tweenMngr.hideHintPointer(
+        this.hintPointer,
+        this.hintPointerStartPos.x,
+        this.hintPointerStartPos.y
+      )
+    );
+
+    setTimeout(() => hintPointerShowTween.resume().restart(), 2000);
   }
 
   #showNextText() {

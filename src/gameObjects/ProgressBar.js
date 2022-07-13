@@ -7,7 +7,7 @@ import {
   CANVAS_SIZE,
 } from "../constants.js";
 
-export default class ProgressBar extends Phaser.GameObjects.GameObject {
+export default class ProgressBar extends Phaser.GameObjects.Sprite {
   constructor(scene, y, length) {
     super(scene, "sprite");
     this.setName("progressBar");
@@ -20,6 +20,7 @@ export default class ProgressBar extends Phaser.GameObjects.GameObject {
         },
         update: function () {
           const centeredX = CANVAS_SIZE.WIDTH / 2 - length / 2;
+
           this.getShape("track")
             .setP0(centeredX, y)
             .setP1(centeredX + length, y)
@@ -33,7 +34,8 @@ export default class ProgressBar extends Phaser.GameObjects.GameObject {
       })
       .setEaseValueFunction("Cubic")
       .setEaseValueDuration(ANIMATION_DURATION)
-      .easeValueTo(0);
+      .easeValueTo(0)
+      .setAlpha(0.5);
   }
 
   nextLevel() {
