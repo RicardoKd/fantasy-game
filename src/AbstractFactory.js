@@ -39,13 +39,13 @@ export default class AbstractFactory {
   }
 
   renderCards(scene) {
-    const card1 = this.renderImage(scene, "dress1", CARD_SCALE);
+    const card1 = this.renderImage(scene, "dress1", CARD_SCALE, 0);
     card1
       .setPosition(CANVAS_SIZE.WIDTH / 2 - card1.width * card1.scale - 10, 410)
       .setName("card1")
       .setInteractive();
 
-    const card2 = this.renderImage(scene, "dress2", CARD_SCALE);
+    const card2 = this.renderImage(scene, "dress2", CARD_SCALE, 0);
     card2
       .setPosition(CANVAS_SIZE.WIDTH / 2 + 10, 410)
       .setName("card2")

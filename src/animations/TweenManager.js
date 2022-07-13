@@ -9,6 +9,10 @@ export default class TweenManager {
         from: gameObject.x - 700,
         to: gameObject.x,
       },
+      alpha: {
+        duration: 1,
+        value: 1,
+      },
       ease: Phaser.Math.Easing.Cubic,
     };
   }
@@ -40,13 +44,28 @@ export default class TweenManager {
     };
   }
 
-  scaleFromZeroToNormal(gameObject) {
+  scaleFromZeroToNormal(gameObject, delay = 0) {
+    const { x, y } = this.#getGameObjectCenter(gameObject);
+
     return {
       targets: gameObject,
       duration: ANIMATION_DURATION,
+      delay: delay,
       scale: {
         from: 0,
         to: gameObject.scale,
+      },
+      x: {
+        from: x,
+        to: gameObject.x,
+      },
+      y: {
+        from: y,
+        to: gameObject.y,
+      },
+      alpha: {
+        duration: 1,
+        value: 1,
       },
       ease: Phaser.Math.Easing.Cubic,
     };
@@ -101,6 +120,20 @@ export default class TweenManager {
     };
   }
 
+  cardChange(gameObject) {
+    const { x, y } = this.#getGameObjectCenter(gameObject);
+
+    return {
+      targets: gameObject,
+      ease: Phaser.Math.Easing.Cubic.InOut,
+      yoyo: true,
+      duration: ANIMATION_DURATION,
+      scale: 0,
+      x: x,
+      y: y,
+    };
+  }
+
   hintPointerShow(gameObject) {
     return {
       targets: gameObject,
@@ -116,6 +149,13 @@ export default class TweenManager {
         yoyo: true,
         repeat: -1,
       },
+    };
+  }
+
+  #getGameObjectCenter(gameObject) {
+    return {
+      x: gameObject.x + (gameObject.width * gameObject.scale) / 2,
+      y: gameObject.y + (gameObject.height * gameObject.scale) / 2,
     };
   }
 }

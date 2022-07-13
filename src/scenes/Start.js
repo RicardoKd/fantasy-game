@@ -66,8 +66,6 @@ export default class Start extends Phaser.Scene {
     this.tweens.add(tweenMngr.showSpeech(girlSpeech));
     this.tweens.add(tweenMngr.humanEnterScene(girl));
     this.tweens.add(tweenMngr.humanEnterScene(girlSurprized));
-    girl.setAlpha(1);
-    girlSurprized.setAlpha(1);
     await this.#humanTalk(girl, girlSurprized);
 
     this.scene.start("Play");

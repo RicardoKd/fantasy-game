@@ -1,5 +1,10 @@
 import AbstractFactory from "../AbstractFactory.js";
-import { HUMAN_SCALE, HINT_POINTER_SCALE, TOP_TEXTS } from "../constants.js";
+import {
+  HUMAN_SCALE,
+  HINT_POINTER_SCALE,
+  ANIMATION_DURATION,
+  TOP_TEXTS,
+} from "../constants.js";
 
 export default class Play extends Phaser.Scene {
   constructor() {
@@ -35,7 +40,7 @@ export default class Play extends Phaser.Scene {
     this.progressBar = this.abstractFactory.renderProgressBar(
       this,
       textBg.y + 50,
-      200
+      textBg.width * textBg.scale
     );
 
     this.tweens.add(
@@ -43,22 +48,22 @@ export default class Play extends Phaser.Scene {
     );
     this.tweens.add(this.tweenMngr.zoomInHuman(this.girl));
     this.tweens.add(this.tweenMngr.scaleFromZeroToNormal(card1));
-    this.tweens.add(this.tweenMngr.scaleFromZeroToNormal(card2));
+    this.tweens.add(this.tweenMngr.scaleFromZeroToNormal(card2, ANIMATION_DURATION));
     this.tweens.add(this.tweenMngr.hintPointerShow(this.hintPointer));
   }
 
   /*
     ---- TODO: ----
 
-      1. Card animation
-
-      2. Timeout (2s) of 
-
       3. Decorate progress bar
 
       4. Animate progress bar
 
       5. Make background a little darker in the Start scene
+
+      6. Make class for human
+
+      7. Adaptiveness
 
   */
 
@@ -74,16 +79,23 @@ export default class Play extends Phaser.Scene {
       this.#fourthChoiceDone,
     ];
 
-    this.progressBar.nextLevel();
+    const card1 = this.children.getByName("card1");
+    const card2 = this.children.getByName("card2");
+    this.tweens.add(this.tweenMngr.cardChange(card1));
+    this.tweens.add(this.tweenMngr.cardChange(card2));
 
-    this.choise[this.levelCounter] = this.#getUsersChoice(target.name);
-    levelHandler[this.levelCounter].call(this);
+    setTimeout(() => {
+      this.progressBar.nextLevel();
 
-    this.levelCounter++;
+      this.choise[this.levelCounter] = this.#getUsersChoice(target.name);
+      levelHandler[this.levelCounter].call(this);
 
-    this.#nextText();
+      this.levelCounter++;
 
-    this.#restartHintPointerTween();
+      this.#showNextText();
+
+      this.#restartHintPointerTween();
+    }, ANIMATION_DURATION);
   }
 
   #firstChoiceDone() {
@@ -139,10 +151,16 @@ export default class Play extends Phaser.Scene {
 
   #restartHintPointerTween() {
     const hintPointerShowTween = this.tweens.getTweensOf(this.hintPointer)[0];
+    // hide hint pointer with a tween
     hintPointerShowTween.restart();
+    hintPointerShowTween.pause();
+    setTimeout(() => {
+      hintPointerShowTween.resume();
+      console.log("must be started");
+    }, 2000);
   }
 
-  #nextText() {
+  #showNextText() {
     const oldText = this.children.getByName("topText");
 
     const newText = this.add.text(0, -30, TOP_TEXTS[this.levelCounter]);
