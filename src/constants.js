@@ -7,7 +7,7 @@ const QUANTITY_OF_LEVELS = 4;
 
 const HUMAN_SCALE = 0.5;
 const CARD_SCALE = 0.6;
-const SPEECH_SCALE = 0.22;
+const SPEECH_SCALE = 0.35;
 const HINT_POINTER_SCALE = 0.7;
 
 const ANIMATION_DURATION = 400;

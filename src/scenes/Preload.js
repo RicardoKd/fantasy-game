@@ -1,5 +1,7 @@
 import man from "../assets/man.png";
 import manSmile from "../assets/man-smile.png";
+import manAngry from "../assets/man-angry.png";
+import manSurprized from "../assets/man-suprized.png";
 import girl from "../assets/girl-default.png";
 import girlShy from "../assets/girl-shy.png";
 import girlSurprized from "../assets/girl-surprized.png";
@@ -9,6 +11,7 @@ import textBg from "../assets/top-text-bg.png";
 // speeches
 import manSpeech1 from "../assets/speeches/man-speech-1.png";
 import manSpeech2 from "../assets/speeches/man-speech-2.png";
+import manSpeech3 from "../assets/speeches/man-speech-3.png";
 import girlSpeech from "../assets/speeches/girl-speech.png";
 
 // cards
@@ -37,6 +40,10 @@ import costume_2_1_1 from "../assets/costumes/girl-2-1-1.png";
 import costume_2_1_2 from "../assets/costumes/girl-2-1-2.png";
 import costume_2_2_1 from "../assets/costumes/girl-2-2-1.png";
 import costume_2_2_2 from "../assets/costumes/girl-2-2-2.png";
+import costume_2_1_1_lose from "../assets/costumes/girl-2-1-1-lose.png";
+import costume_2_1_2_lose from "../assets/costumes/girl-2-1-2-lose.png";
+import costume_2_2_1_lose from "../assets/costumes/girl-2-2-1-lose.png";
+import costume_2_2_2_lose from "../assets/costumes/girl-2-2-2-lose.png";
 
 // locations
 import bgLocation1 from "../assets/location-1.png";
@@ -56,6 +63,8 @@ export default class Preload extends Phaser.Scene {
 
     this.load.image("man", man);
     this.load.image("manSmile", manSmile);
+    this.load.image("manAngry", manAngry);
+    this.load.image("manSurprized", manSurprized);
     this.load.image("girl", girl);
     this.load.image("girlShy", girlShy);
     this.load.image("girlSurprized", girlSurprized);
@@ -64,6 +73,7 @@ export default class Preload extends Phaser.Scene {
 
     this.load.image("manSpeech1", manSpeech1);
     this.load.image("manSpeech2", manSpeech2);
+    this.load.image("manSpeech3", manSpeech3);
     this.load.image("girlSpeech", girlSpeech);
 
     this.load.image("dress1", dress1);
@@ -90,6 +100,10 @@ export default class Preload extends Phaser.Scene {
     this.load.image("costume_2_1_2", costume_2_1_2);
     this.load.image("costume_2_2_1", costume_2_2_1);
     this.load.image("costume_2_2_2", costume_2_2_2);
+    this.load.image("costume_2_1_1_lose", costume_2_1_1_lose);
+    this.load.image("costume_2_1_2_lose", costume_2_1_2_lose);
+    this.load.image("costume_2_2_1_lose", costume_2_2_1_lose);
+    this.load.image("costume_2_2_2_lose", costume_2_2_2_lose);
 
     this.load.image("bgLocation1", bgLocation1);
     this.load.image("bgLocation2", bgLocation2);
