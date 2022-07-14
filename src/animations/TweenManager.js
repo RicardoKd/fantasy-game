@@ -1,19 +1,29 @@
-import { SPEECH_SCALE, ANIMATION_DURATION, CANVAS_SIZE } from "../constants.js";
+import {
+  SPEECH_SCALE,
+  ANIMATION_DURATION,
+  CANVAS_SIZE,
+  MAIN_EASE_FUNCTION,
+} from "../constants.js";
 
 export default class TweenManager {
-  humanEnterScene(gameObject) {
+  humanEnterScene(gameObject, directionOfComing = "left") {
+    let a = -700;
+    if (directionOfComing === "right") {
+      a = 700;
+    }
+
     return {
       targets: gameObject,
       duration: ANIMATION_DURATION,
       x: {
-        from: gameObject.x - 700,
+        from: gameObject.x + a,
         to: gameObject.x,
       },
       alpha: {
         duration: 1,
         value: 1,
       },
-      ease: Phaser.Math.Easing.Cubic,
+      ease: MAIN_EASE_FUNCTION,
     };
   }
 
@@ -22,7 +32,7 @@ export default class TweenManager {
       targets: gameObject,
       duration: ANIMATION_DURATION,
       x: "+=700",
-      ease: Phaser.Math.Easing.Cubic,
+      ease: MAIN_EASE_FUNCTION,
     };
   }
 
@@ -31,7 +41,7 @@ export default class TweenManager {
       targets: gameObject,
       duration: ANIMATION_DURATION,
       scale: 0,
-      ease: Phaser.Math.Easing.Cubic,
+      ease: MAIN_EASE_FUNCTION,
     };
   }
 
@@ -40,7 +50,16 @@ export default class TweenManager {
       targets: gameObject,
       duration: ANIMATION_DURATION,
       alpha: 0,
-      ease: Phaser.Math.Easing.Cubic,
+      ease: MAIN_EASE_FUNCTION,
+    };
+  }
+
+  AlphaTo(gameObject, alpha) {
+    return {
+      targets: gameObject,
+      duration: ANIMATION_DURATION,
+      alpha: alpha,
+      ease: MAIN_EASE_FUNCTION,
     };
   }
 
@@ -67,7 +86,7 @@ export default class TweenManager {
         duration: 1,
         value: 1,
       },
-      ease: Phaser.Math.Easing.Cubic,
+      ease: MAIN_EASE_FUNCTION,
     };
   }
 
@@ -80,7 +99,7 @@ export default class TweenManager {
         from: 0,
         to: SPEECH_SCALE,
       },
-      ease: Phaser.Math.Easing.Cubic,
+      ease: MAIN_EASE_FUNCTION,
     };
   }
 
@@ -89,7 +108,7 @@ export default class TweenManager {
       targets: gameObject,
       duration: ANIMATION_DURATION,
       y: "+=60",
-      ease: Phaser.Math.Easing.Cubic,
+      ease: MAIN_EASE_FUNCTION,
     };
   }
 
@@ -105,7 +124,7 @@ export default class TweenManager {
         from: CANVAS_SIZE.WIDTH / 2,
         to: CANVAS_SIZE.WIDTH / 2 - gameObject.width / 2,
       },
-      ease: Phaser.Math.Easing.Cubic,
+      ease: MAIN_EASE_FUNCTION,
     };
   }
 
@@ -116,7 +135,7 @@ export default class TweenManager {
       scale: "+=0.05",
       x: "-=15",
       y: "+=40",
-      ease: Phaser.Math.Easing.Cubic,
+      ease: MAIN_EASE_FUNCTION,
     };
   }
 
@@ -125,7 +144,7 @@ export default class TweenManager {
 
     return {
       targets: gameObject,
-      ease: Phaser.Math.Easing.Cubic.InOut,
+      ease: MAIN_EASE_FUNCTION.InOut,
       yoyo: true,
       duration: ANIMATION_DURATION,
       scale: 0,
@@ -137,7 +156,7 @@ export default class TweenManager {
   showHintPointer(gameObject) {
     return {
       targets: gameObject,
-      ease: Phaser.Math.Easing.Cubic.InOut,
+      ease: MAIN_EASE_FUNCTION.InOut,
       y: {
         value: "-=150",
         duration: ANIMATION_DURATION,
@@ -155,7 +174,7 @@ export default class TweenManager {
   hideHintPointer(gameObject, x, y) {
     return {
       targets: gameObject,
-      ease: Phaser.Math.Easing.Cubic,
+      ease: MAIN_EASE_FUNCTION,
       duration: ANIMATION_DURATION,
       x: x,
       y: y,

@@ -9,11 +9,14 @@ import {
 export default class Play extends Phaser.Scene {
   constructor() {
     super("Play");
-    this.choise = [0, 0, 0, 0];
+    this.choice = [0, 0, 0, 0];
     this.levelCounter = 0;
   }
 
   create() {
+    this.choice = [0, 0, 0, 0];
+    this.levelCounter = 0;
+
     this.input.on("gameobjectover", this.#cardHover, this);
     this.input.on("gameobjectdown", this.#cardClicked, this);
 
@@ -45,7 +48,6 @@ export default class Play extends Phaser.Scene {
       textBg.width * textBg.scale
     );
 
-    console.log(this.progressBar);
     this.tweens.add(this.tweenMngr.revealTopText([textBg, topText]));
     this.tweens.add(this.tweenMngr.revealTopText(this.progressBar));
     this.tweens.add(this.tweenMngr.zoomInHuman(this.girl));
@@ -74,7 +76,7 @@ export default class Play extends Phaser.Scene {
   */
 
   #cardHover(pointer, target) {
-    console.log(target);
+    // console.log(target);
   }
 
   #cardClicked(pointer, target) {
@@ -93,7 +95,7 @@ export default class Play extends Phaser.Scene {
     setTimeout(() => {
       this.progressBar.nextLevel();
 
-      this.choise[this.levelCounter] = this.#getUsersChoice(target.name);
+      this.choice[this.levelCounter] = this.#getUsersChoice(target.name);
       levelHandler[this.levelCounter].call(this);
 
       this.levelCounter++;
@@ -106,34 +108,40 @@ export default class Play extends Phaser.Scene {
 
   #firstChoiceDone() {
     this.#showNextCards("bag1", "bag2");
-    this.girl.setTexture(`costume_${this.choise[0]}`);
+    this.girl.setTexture(`costume_${this.choice[0]}`);
   }
 
   #secondChoiceDone() {
-    if (this.choise[this.levelCounter] === 1) {
+    if (this.choice[this.levelCounter] === 1) {
       this.#showNextCards("accessory1", "accessory2");
     } else {
       this.#showNextCards("accessory1", "accessory3");
     }
 
-    this.girl.setTexture(`costume_${this.choise[0]}_${this.choise[1]}`);
+    this.girl.setTexture(`costume_${this.choice[0]}_${this.choice[1]}`);
   }
 
   #thirdChoiceDone() {
     this.#showNextCards("location1", "location2");
     this.girl.setTexture(
-      `costume_${this.choise[0]}_${this.choise[1]}_${this.choise[2]}`
+      `costume_${this.choice[0]}_${this.choice[1]}_${this.choice[2]}`
     );
   }
 
   #fourthChoiceDone() {
-    console.log("show win or end screen");
-
     const textBg = this.children.getByName("textBg");
     const topText = this.children.getByName("topText");
     this.tweens.add(this.tweenMngr.alphaToZero([textBg, topText]));
 
-    // show win or lose screen
+    if (this.choice[0] === 1) {
+      this.scene.start("Win", {
+        choice: this.choice,
+      });
+    } else {
+      this.scene.start("Lose", {
+        choice: this.choice,
+      });
+    }
   }
 
   #showNextCards(texture1, texture2) {

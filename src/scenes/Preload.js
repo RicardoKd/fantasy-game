@@ -10,8 +10,6 @@ import textBg from "../assets/top-text-bg.png";
 import manSpeech1 from "../assets/speeches/man-speech-1.png";
 import manSpeech2 from "../assets/speeches/man-speech-2.png";
 import girlSpeech from "../assets/speeches/girl-speech.png";
-import location1 from "../assets/cards/location-1.png";
-import location2 from "../assets/cards/location-2.png";
 
 // cards
 import dress1 from "../assets/cards/dress-1.png";
@@ -21,6 +19,8 @@ import bag2 from "../assets/cards/bag-2.png";
 import accessory1 from "../assets/cards/accessory-1.png";
 import accessory2 from "../assets/cards/accessory-2.png";
 import accessory3 from "../assets/cards/accessory-3.png";
+import location1 from "../assets/cards/location-1.png";
+import location2 from "../assets/cards/location-2.png";
 
 // costumes
 import costume_1 from "../assets/costumes/girl-1.png";
@@ -41,6 +41,10 @@ import costume_2_2_2 from "../assets/costumes/girl-2-2-2.png";
 // locations
 import bgLocation1 from "../assets/location-1.png";
 import bgLocation2 from "../assets/location-2.png";
+
+// buttons
+import winButton from "../assets/win-button.png";
+import loseButton from "../assets/lose-button.png";
 
 export default class Preload extends Phaser.Scene {
   constructor() {
@@ -89,9 +93,12 @@ export default class Preload extends Phaser.Scene {
 
     this.load.image("bgLocation1", bgLocation1);
     this.load.image("bgLocation2", bgLocation2);
+
+    this.load.image("winButton", winButton);
+    this.load.image("loseButton", loseButton);
   }
 
   create() {
-    this.scene.start("Play");
+    this.scene.start("Start");
   }
 }

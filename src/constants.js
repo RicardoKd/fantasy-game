@@ -23,6 +23,8 @@ const TRACK_COLOR = 0xa9a9a9;
 const BAR_COLOR = 0xf09080;
 const LINE_THICKNESS = 10;
 
+const MAIN_EASE_FUNCTION = Phaser.Math.Easing.Cubic;
+
 export {
   CANVAS_SIZE,
   QUANTITY_OF_LEVELS,
@@ -35,4 +37,5 @@ export {
   TRACK_COLOR,
   BAR_COLOR,
   LINE_THICKNESS,
+  MAIN_EASE_FUNCTION,
 };
