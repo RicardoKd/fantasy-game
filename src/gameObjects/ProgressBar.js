@@ -16,12 +16,17 @@ export default class ProgressBar extends Phaser.GameObjects.Sprite {
       .rexCustomProgress({
         type: "rexCustomProgress",
         create: {
-          line: ["track", "bar"],
+          line: ["trackBlack", "trackYellow", "bar"],
         },
         update: function () {
           const centeredX = CANVAS_SIZE.WIDTH / 2 - length / 2;
 
-          this.getShape("track")
+          this.getShape("trackYellow")
+            .setP0(centeredX - 4, y)
+            .setP1(centeredX + length + 4, y)
+            .lineStyle(LINE_THICKNESS + 6, 0xee6a2f);
+
+          this.getShape("trackBlack")
             .setP0(centeredX, y)
             .setP1(centeredX + length, y)
             .lineStyle(LINE_THICKNESS, TRACK_COLOR);

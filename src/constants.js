@@ -24,8 +24,8 @@ const TOP_TEXTS = [
   "Choose your place",
 ];
 
-const TRACK_COLOR = 0xa9a9a9;
-const BAR_COLOR = 0xf09080;
+const TRACK_COLOR = 0x000000;
+const BAR_COLOR = 0xFFBC43;
 const LINE_THICKNESS = 10;
 
 const MAIN_EASE_FUNCTION = Phaser.Math.Easing.Cubic;

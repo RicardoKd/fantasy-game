@@ -10,8 +10,8 @@ import {
 export default class Play extends Phaser.Scene {
   constructor() {
     super("Play");
-    this.choice = [0, 0, 0, 0];
-    this.levelCounter = 0;
+    this.choice;
+    this.levelCounter;
   }
 
   create() {
@@ -46,7 +46,7 @@ export default class Play extends Phaser.Scene {
     this.progressBar = this.abstractFactory.renderProgressBar(
       this,
       textBg.y + 50,
-      textBg.width * textBg.scale
+      textBg.width * textBg.scale - 15
     );
 
     this.tweens.add(this.tweenMngr.revealTopText([textBg, topText]));
@@ -58,17 +58,6 @@ export default class Play extends Phaser.Scene {
     );
     this.tweens.add(this.tweenMngr.showHintPointer(this.hintPointer));
   }
-
-  /*
-    ---- TODO: ----
-    
-      1. Progress bar
-        1) Decoration
-        2) Animations on show/hide
-      
-      2. Make a class for human
-
-  */
 
   #cardHover(pointer, target) {
     // console.log(target);
