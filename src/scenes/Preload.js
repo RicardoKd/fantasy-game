@@ -53,13 +53,14 @@ import bgLocation2 from "../assets/location-2.png";
 import winButton from "../assets/win-button.png";
 import loseButton from "../assets/lose-button.png";
 
+import { BG_POSITION } from "../constants.js";
 export default class Preload extends Phaser.Scene {
   constructor() {
     super("Preload");
   }
 
   preload() {
-    this.add.sprite(0, 0, "bg").setOrigin(0, 0);
+    this.add.sprite(0, 0, "bg").setPosition(BG_POSITION.X, BG_POSITION.Y);
 
     this.load.image("man", man);
     this.load.image("manSmile", manSmile);

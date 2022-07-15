@@ -1,6 +1,11 @@
 const CANVAS_SIZE = {
-  WIDTH: 1000,
+  WIDTH: window.innerWidth > window.innerHeight ? 1000 : 400,
   HEIGHT: 600,
+};
+
+const BG_POSITION = {
+  X: CANVAS_SIZE.WIDTH / 2,
+  Y: CANVAS_SIZE.HEIGHT / 2,
 };
 
 const QUANTITY_OF_LEVELS = 4;
@@ -27,6 +32,7 @@ const MAIN_EASE_FUNCTION = Phaser.Math.Easing.Cubic;
 
 export {
   CANVAS_SIZE,
+  BG_POSITION,
   QUANTITY_OF_LEVELS,
   HUMAN_SCALE,
   CARD_SCALE,

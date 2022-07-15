@@ -1,5 +1,10 @@
 import AbstractFactory from "../AbstractFactory.js";
-import { CANVAS_SIZE, HUMAN_SCALE, SPEECH_SCALE } from "../constants.js";
+import {
+  CANVAS_SIZE,
+  BG_POSITION,
+  HUMAN_SCALE,
+  SPEECH_SCALE,
+} from "../constants.js";
 
 export default class Win extends Phaser.Scene {
   constructor() {
@@ -17,7 +22,9 @@ export default class Win extends Phaser.Scene {
     const abstractFactory = new AbstractFactory();
     const tweenMngr = abstractFactory.createTweenManager();
 
-    this.add.sprite(0, 0, this.locationTextureName).setOrigin(0, 0);
+    this.add
+      .sprite(0, 0, this.locationTextureName)
+      .setPosition(BG_POSITION.X, BG_POSITION.Y);
 
     const man = abstractFactory.renderImageXCenter(
       this,
@@ -50,6 +57,12 @@ export default class Win extends Phaser.Scene {
       0
     );
 
+    const darkOverlay = this.add
+      .rectangle(0, 0, CANVAS_SIZE.WIDTH, CANVAS_SIZE.HEIGHT, "000000", 0.3)
+      .setOrigin(0, 0)
+      .setAlpha(0)
+      .setInteractive();
+
     const winButton = abstractFactory.renderImageXCenter(
       this,
       "winButton",
@@ -57,12 +70,6 @@ export default class Win extends Phaser.Scene {
       1,
       0
     );
-
-    const darkOverlay = this.add
-      .rectangle(0, 0, CANVAS_SIZE.WIDTH, CANVAS_SIZE.HEIGHT, "000000", 0.3)
-      .setOrigin(0, 0)
-      .setAlpha(0)
-      .setInteractive();
 
     this.tweens.add(tweenMngr.humanEnterScene(girl));
     this.tweens.add(tweenMngr.humanEnterScene(man, "right"));

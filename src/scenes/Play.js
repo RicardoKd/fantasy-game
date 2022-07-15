@@ -1,5 +1,6 @@
 import AbstractFactory from "../AbstractFactory.js";
 import {
+  BG_POSITION,
   HUMAN_SCALE,
   HINT_POINTER_SCALE,
   ANIMATION_DURATION,
@@ -23,7 +24,7 @@ export default class Play extends Phaser.Scene {
     this.abstractFactory = new AbstractFactory();
     this.tweenMngr = this.abstractFactory.createTweenManager();
 
-    this.add.sprite(0, 0, "bg").setOrigin(0, 0);
+    this.add.sprite(0, 0, "bg").setPosition(BG_POSITION.X, BG_POSITION.Y);
 
     const { textBg, topText } = this.abstractFactory.renderTopText(this);
 
@@ -60,15 +61,12 @@ export default class Play extends Phaser.Scene {
 
   /*
     ---- TODO: ----
-      1. Lose scene
-
-      2. Adaptiveness
-      
-      3. Progress bar
+    
+      1. Progress bar
         1) Decoration
         2) Animations on show/hide
       
-      4. Make a class for human
+      2. Make a class for human
 
   */
 
